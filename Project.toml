@@ -1,0 +1,17 @@
+name = "RavanaFS"
+uuid = "872e25a4-3394-11e9-0a14-97cc22922448"
+authors = ["Ajay Mendez <ajay.mendez@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
+Distributed = "8ba89e20-285c-5b6f-9357-94700520ee1b"
+KVS = "d6d2650a-3413-11e9-0ffd-1137ca3de647"
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+MsgPack = "99f44e22-a591-53d1-9472-aa23ef4bd671"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+ProgressMeter = "92933f4c-e287-5a05-a399-4b506db050ca"
+RocksDB = "1341945c-a14d-11e8-24c3-dbaabfaf94ca"
+SHA = "ea8e919c-243c-51af-8825-aaa63cd721ce"
+Sockets = "6462fe0b-24de-5631-8697-dd941f90decc"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
