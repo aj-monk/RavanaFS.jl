@@ -166,12 +166,6 @@ TBD
 
 """
 module RavanaFS
-# Module Initializer
-function __init__()
-    controller()
-    # init_dispatcher() # Starts dispatch task
-end
-
 # Depending modules
 # using Thimble
 using Logging
@@ -180,9 +174,17 @@ using Dates
 using Printf
 using Distributed
 using Sockets
+using Dates
 
 # Set default logging level
 global_logger(ConsoleLogger(stderr, Logging.Debug, Logging.default_metafmt, true, 0, Dict{Any, Int64}()))
+
+# Module Initializer
+function __init__()
+    controller()
+    # init_dispatcher() # Starts dispatch task
+    #atexit(ravana_cleanup()) # Module cleanup
+end
 
 # Exported
 export fileOps, fid_t, id_t, FileAttr

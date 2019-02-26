@@ -1,14 +1,11 @@
-const BASE_DIR = "/opt/kinant/"
+# const BASE_DIR = "/opt/kinant/"
 function  base_dir()
-    b = BASE_DIR
+    b = getindex(ENV, "HOME") * "/.ravanafs/"
+    stat(b).inode == 0 && Base.mkdir(b)
     try
         stat(b).inode == 0 && Base.mkdir(b)
     catch e
-        error("Cannot access $(BASE_DIR)")
-        #=
-        b = getindex(ENV, "HOME") * "/kinant/"
-        stat(b).inode == 0 && Base.mkdir(b)
-        =#
+        error("Cannot access $(b). Perhaps you don't have permission?")
     end
     b
 end
@@ -34,26 +31,38 @@ function get_src_path(component::String)
     throw(RavanaInvalidArgException("Could'nt find component $(component)", ENOTNAM))
 end
 
+function controller_cleanup()
+    csock = base_dir() * CSOCK
+    rm(csock)
+end
+
 const CSOCK = "ControllerSock"
 function controller()
     myid() != 1 && return
+    sock = base_dir() * CSOCK
     @async begin
-        server = listen(base_dir() * CSOCK)
-        println("In controller listening on $(base_dir() * CSOCK)")
-        while true
-                sock = accept(server)
-                !isopen(sock) && @error("Error! Socket not open")
-            try
-                (op, argv, ro, ns, jl) = get_opt(sock, ctl_op_table)
-                @debug("Controller op = $op $argv")
-                println("Controller op = $op $argv")
-                op == OP_UNKNOWN && continue
+    server = nothing
+    try
+        server = listen(sock)
+    catch e
+        @error("Controller: listen error $(e)")
+        @error("Check if another controller process is running. If not remove the file $(sock)")
+        return
+    end
+    @debug("In controller listening on $(base_dir() * CSOCK)")
+    while true
+        try
+            sock = accept(server)
+            !isopen(sock) && @error("Error! Socket not open")
+            (op, argv, ro, ns, jl) = get_opt(sock, ctl_op_table)
+            @debug("Controller op = $op $argv")
+            op == OP_UNKNOWN && continue
 
-                execute_ctl_op(sock, op, argv, jl)
-            catch e
-                println("Controller exception $(e)")
-            end
+            execute_ctl_op(sock, op, argv, jl)
+        catch e
+            @error("Controller exception $(e)")
         end
+    end
     end # Async task
 end
 
@@ -150,12 +159,14 @@ function ctl_worker(op, argv)
 end
 
 function start_fs_proc(cid)
-    pid = addprocs(1; topology=:master_worker)[1]
-    set_pid(cid, pid)
+    # pid = addprocs(1; topology=:master_worker)[1]
+    # set_pid(cid, pid)
     fsb = fs_base(cid)
     stat(fsb).size == 0 && mkdir(fsb)
-    remotecall_fetch(include, pid, get_src_path("RavanaFS") * "/src/RavanaFS.jl")
-    remotecall_fetch(init_dispatcher, pid, fsb)
+    # m = Meta.parse(using RavanaFS)
+    # fetch(@spawnat pid eval)
+    # remotecall_fetch(init_dispatcher, pid, fsb)
+    init_dispatcher(fsb)
 end
 
 function kill_fs_proc(cid)
@@ -172,6 +183,7 @@ function ctl_mkfs(cid::id_t, recreate::Bool)
     println("In ctl_mkfs")
     get_ref(cid) > 0 && throw(RavanaInvalidArgException("Fs $(cid) already mounted", EEXIST))
     start_fs_proc(cid)
+    sleep(1)
     ret = rfs_client(cid, OP_UTIL_MKFS, cid, recreate)
     isa(ret, Exception) && kill_fs_proc(cid)
     return ret

@@ -58,19 +58,20 @@ function ns_lookup(parent_id::fid_t, fname::String)
 end
 
 function ns_readdir(parent_id::fid_t, whence::UInt64)
-    try
+    #try
         # Check if parent exists
         if kvs_get(namespace_db, parent_id) == nothing
             return RavanaInvalidIdException("Invalid parent_id $parent_id", EBADF)
         end
         first = (parent_id, whence, "\U0")
         last  = (parent_id, UInt64(0xffffffffffffffff), "\Uffff")
+        @debug("$namespace_db, $first, $last, 1024, inc_first=false")
         dir = assemble_dirent(kvs_get_many(namespace_db, first, last, 1024, inc_first=false))
         # return (dir, eof status)
         return (dir, length(dir)<1024 ? UInt32(1) : UInt32(0))
-    catch e
-        return e
-    end
+    #catch e
+    #    return e
+    #end
 end
 
 """
@@ -132,7 +133,7 @@ function ns_create(op::Int32, parent_id::fid_t, child_id::fid_t, fname::String, 
 
         # Bump up parent directory entry count
         parent_attr.size += 1
-        # Update mtime and ctime for parent directory           
+        # Update mtime and ctime for parent directory
         parent_attr.mtime = TimeSpec()
         parent_attr.ctime = TimeSpec()
         kvs_put(namespace_db, parent_id, parent_attr)
@@ -452,7 +453,8 @@ function ns_mkfs(cid::id_t, recreate::Bool)
     global cur_cid = cid
     db = namespace_db
     # Write fs stuff to (hidden) inode 2
-    super = RavanaSuper(FS_VERSION, pcid, cid, id_t(1), now(Base.Dates.UTC), 0, 0)
+    super = RavanaSuper(FS_VERSION, pcid, cid, id_t(1), now(Dates.UTC),
+                        Millisecond(0), Millisecond(0))
     kvs_put(db, fid_t(THIMBLE_ARGS), super)
     recreate && return super
 
@@ -475,7 +477,7 @@ end
 function assemble_dirent(input)
     (k, v, n) = input
     @debug("found $n dir entries")
-    dir = Vector{Dentry}(n)
+    dir = Vector{Dentry}(undef, n)
     h = UInt64(0)
     for i = 1:n
         (p, h, name) = k[i]

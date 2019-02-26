@@ -30,9 +30,9 @@ function rfs_client(cid::id_t, op::Int32, argv...)
     version = UInt16(RFS_PROTO_VERSION)
     flags = UInt16(RFS_JULIA_CLIENT)
     endpoint = (cid == 0) ? base_dir() * "$(CSOCK)" : fs_base(cid) * "$(DSOCK)"
-    println("rfs_client: writing to $(endpoint)")
+    @debug("rfs_client: writing to $(endpoint)")
     client = connect(endpoint)
-    println("rfs_client connected")
+    @debug("rfs_client connected")
 
     write(client, size, version, flags, bytes)
     ret_size = read(client, Int)
@@ -80,7 +80,6 @@ function get_opt(sock, lookup_table)
             return in_func(iob)
         end
     catch e
-        println("getopt exception $(e)")
         process_exception(sock, OP_UNKNOWN, e, false, op_table)
         return (OP_UNKNOWN, nothing, true, true, false)
     end
@@ -113,13 +112,11 @@ weight schedulable entities). The flow is as follows:
    The result of the execution is returned in the socket.
 """
 function dispatch_server(base::String)
-    println("In dispatch_server")
     stat(get_dsock(base)).inode != 0 && throw(RavanaEExists("Data path socket exists $(base)", EEXIST))
 
     @async begin
         server = listen(get_dsock(base))
         @debug("Dispatcher waiting on $(get_dsock(base))")
-        println("Dispatcher waiting on $(get_dsock(base))")
         while true
             sock = accept(server)
             if isopen(sock) != true

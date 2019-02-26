@@ -92,7 +92,7 @@ end
 function TimeSpec() # Constructor
     CLOCK_REALTIME_COARSE::Int32 = 5
     ts = TimeSpec(0, 0)
-    status = ccall(:clock_gettime, Cint, (Cint, Ptr{TimeSpec}), CLOCK_REALTIME_COARSE, pointer(ts))
+    status = ccall(:clock_gettime, Cint, (Cint, Ptr{TimeSpec}), CLOCK_REALTIME_COARSE, pointer_from_objref(ts))
     status != 0 && error("unable to determine current time: ", status)
     return ts
 end
@@ -453,4 +453,9 @@ macro wait_for(s::Float64, exp::Expr)
             tick *= decay
         end
     end
+end
+
+function ravana_cleanup()
+    dispatch_cleanup(".")
+    controller_cleanup()
 end

@@ -1,0 +1,277 @@
+
+src/UnitTests.jl,440
+hex(n) = string(n, base=16)hex7,90
+function test_fs1()test_fs117,299
+function test_fs2(;iter=100)test_fs244,1166
+function create_files(name::String; n=10)create_files78,2135
+function check_files(name::String; n=10)check_files84,2239
+function test_fs3()test_fs391,2403
+function read_write_check(fid, bytes, offset, size)read_write_check113,2981
+function test_fs4()test_fs4133,3757
+function runtests_fs()runtests_fs171,4923
+
+src/Serialize.jl,4359
+function lower64(num::UInt128)lower6423,775
+function upper64(num::UInt128)upper6427,859
+function UInt128(lo::UInt64, up::UInt64)UInt12831,924
+function return_to_jl_client(sock, ret)return_to_jl_client35,1013
+function rfs_timespec_unpack(iob)rfs_timespec_unpack40,1112
+function rfs_attr_unpack(iob)rfs_attr_unpack46,1250
+function rfs_fid_pack(iob, fid::fid_t)rfs_fid_pack65,1902
+function rfs_cid_pack(iob, cid::id_t)rfs_cid_pack70,2018
+function rfs_timespec_pack(iob, t::TimeSpec)rfs_timespec_pack75,2133
+function rfs_attr_pack(iob, a::FileAttr)rfs_attr_pack80,2242
+function rfs_u128_unpack(iob)rfs_u128_unpack94,2633
+rfs_cid_unpack(iob) = rfs_u128_unpack(iob)rfs_cid_unpack100,2762
+rfs_fid_unpack(iob) = rfs_u128_unpack(iob)rfs_fid_unpack101,2805
+function rfs_lookup_unpack(iob)rfs_lookup_unpack112,3101
+function rfs_lookup_unpack(args::Tuple)rfs_lookup_unpack121,3351
+function check_exception(iob, ret)check_exception130,3592
+function rfs_lookup_ret(sock, attrs, jl)rfs_lookup_ret148,3994
+function rfs_readdir_unpack(iob)rfs_readdir_unpack170,4647
+function rfs_readdir_unpack(args::Tuple)rfs_readdir_unpack180,4935
+function rfs_dentries_pack(iob, dentries::Vector{Dentry})rfs_dentries_pack184,5029
+function rfs_readdir_ret(sock, ret, jl)rfs_readdir_ret206,5682
+function rfs_create_unpack(iob)rfs_create_unpack234,6543
+function rfs_create_unpack(args::Tuple)rfs_create_unpack246,6936
+function rfs_mknod_unpack(iob)rfs_mknod_unpack275,7810
+function rfs_create_ret(sock, ret, jl::Bool)rfs_create_ret289,8276
+function rfs_mkdir_unpack(iob)rfs_mkdir_unpack314,9107
+function rfs_mkdir_unpack(args::Tuple)rfs_mkdir_unpack327,9574
+function rfs_mkdir_ret(sock, ret, jl::Bool)rfs_mkdir_ret340,9920
+function rfs_symlink_unpack(iob)rfs_symlink_unpack367,10804
+function rfs_symlink_unpack(args::Tuple)rfs_symlink_unpack381,11343
+function rfs_symlink_ret(sock, ret, jl)rfs_symlink_ret393,11709
+function rfs_getattrs_unpack(iob)rfs_getattrs_unpack414,12253
+function rfs_getattrs_unpack(args::Tuple)rfs_getattrs_unpack422,12458
+function rfs_getattrs_ret(sock, ret, jl)rfs_getattrs_ret433,12719
+function rfs_setattrs_unpack(iob)rfs_setattrs_unpack457,13387
+function rfs_setattrs_unpack(args::Tuple)rfs_setattrs_unpack467,13676
+function rfs_setattrs_ret(sock, ret, jl)rfs_setattrs_ret477,13891
+function rfs_link_unpack(iob)rfs_link_unpack501,14564
+function rfs_link_unpack(args::Tuple)rfs_link_unpack511,14882
+function rfs_link_ret(sock, ret, jl)rfs_link_ret521,15082
+function rfs_rename_unpack(iob)rfs_rename_unpack546,15708
+function rfs_rename_unpack(args::Tuple)rfs_rename_unpack557,16139
+function rfs_rename_ret(sock, ret, jl)rfs_rename_ret568,16383
+function rfs_unlink_unpack(iob)rfs_unlink_unpack589,16925
+function rfs_unlink_unpack(args::Tuple)rfs_unlink_unpack598,17192
+function rfs_unlink_ret(sock, ret, jl)rfs_unlink_ret609,17436
+function rfs_rmdir_unpack(iob)rfs_rmdir_unpack630,17976
+function rfs_rmdir_unpack(args::Tuple)rfs_rmdir_unpack639,18240
+function rfs_rmdir_ret(sock, ret, jl)rfs_rmdir_ret650,18480
+function rfs_read_unpack(iob)rfs_read_unpack662,18768
+function rfs_read_unpack(args::Tuple)rfs_read_unpack672,19062
+function rfs_read_ret(sock, ret, jl)rfs_read_ret685,19396
+function rfs_write_unpack(iob)rfs_write_unpack700,19803
+function rfs_write_unpack(args::Tuple)rfs_write_unpack711,20141
+function rfs_write_ret(sock, ret, jl)rfs_write_ret723,20439
+function rfs_readlink_unpack(iob)rfs_readlink_unpack738,20889
+function rfs_readlink_unpack(args::Tuple)rfs_readlink_unpack746,21092
+function rfs_readlink_ret(sock, ret, jl)rfs_readlink_ret751,21224
+function rfs_mkfs_unpack(args::Tuple)rfs_mkfs_unpack766,21602
+function rfs_mkfs_ret(sock, ret, jl)rfs_mkfs_ret771,21732
+function rfs_mount_unpack(args::Tuple)rfs_mount_unpack777,21831
+function rfs_mount_ret(sock, ret, jl)rfs_mount_ret782,21958
+function rfs_checkpoint_unpack(args::Tuple)rfs_checkpoint_unpack788,22058
+function rfs_checkpoint_ret(sock, ret, jl)rfs_checkpoint_ret793,22191
+function rfs_syncpoint_unpack(args::Tuple)rfs_syncpoint_unpack799,22296
+function rfs_syncpoint_ret(sock, ret, jl)rfs_syncpoint_ret804,22429
+function rfs_log_level_unpack(args::Tuple)rfs_log_level_unpack810,22533
+function rfs_log_level_ret(sock, ret, jl)rfs_log_level_ret815,22671
+
+src/RavanaDispatcher.jl,1099
+function init_dispatcher()init_dispatcher9,113
+function init_dispatcher(base::String)init_dispatcher13,170
+function rfs_client(cid::id_t, op::Int32, argv...)rfs_client27,510
+function process_exception(sock, op, e, jl, lookup_table)process_exception48,1188
+function process_preamble(h::UInt64)process_preamble56,1401
+function get_opt(sock, lookup_table)get_opt64,1669
+get_dsock(base::String) = base * "/" * DSOCKget_dsock88,2522
+function dispatch_cleanup(base::String)dispatch_cleanup90,2568
+function dispatch_server(base::String)dispatch_server114,3540
+function log_task(sock, op, args, ro::Bool, ns::Bool, jl::Bool)log_task164,5274
+function execute(sock, op::Int32, args, ro::Bool, ns::Bool, jl::Bool)execute190,6191
+    isopen(sock) && @debug("isopen(sock) = true")isopen197,6415
+function execute_data_op(sock, op::Int32, args, ro::Bool, ns::Bool, jl::Bool)execute_data_op200,6470
+function execute_ns_op(sock, op, args, ro, ns, jl)execute_ns_op233,7521
+function update_attrs(op, fattr, off, size)update_attrs245,7895
+function get_current_fs()get_current_fs263,8485
+
+src/RavanaFsOps.jl,367
+function mkdir(dhandle::Fhandle, fname::String)mkdir30,1381
+function mk_root(cid::id_t)mk_root39,1663
+function mk_root(cid::id_t)mk_root49,2012
+function insert_dentry(dhandle::Fhandle, dentry::Dentry)insert_dentry67,2561
+macro test_error(exp)test_error76,2758
+function test_ravana1()test_ravana188,2936
+function runtests_ravana()runtests_ravana111,3505
+
+src/RavanaDeclarations.jl,2176
+fid_t() = fid_t(rand(fid_t) + RESERVED_BLKS)fid_t13,572
+mutable struct RavanaFsRavanaFs29,1010
+RavanaFs() = RavanaFs(0, 0)RavanaFs33,1066
+mutable struct rfs_header_trfs_header_t47,1566
+mutable struct TimeSpec     # Equivalent to C's struct timespecTimeSpec88,2755
+function TimeSpec() # ConstructorTimeSpec92,2884
+macro set_flag(var, flag)set_flag109,3554
+function is_flag(var, flag)is_flag115,3621
+KB(X) = X * (1 << 10)KB123,3724
+MB(x) = x * (1 << 20)MB124,3746
+GB(x) = x * (1 << 30)GB125,3768
+TB(x) = x * (1 << 40)TB126,3790
+mutable struct FileAttrFileAttr138,4120
+FileAttr() = FileAttr(UInt32(0), UInt32(0), UInt32(0),FileAttr151,4566
+mutable struct InodeInode157,4791
+mutable struct FhandleFhandle162,4851
+mutable struct DentryDentry167,4913
+mutable struct RavanaSuperRavanaSuper173,4991
+RavanaSuper() = RavanaSuper(0, 0, 0, 0, 0, 0, 0)RavanaSuper182,5361
+abstract type RavanaException <: Exception endRavanaException321,14210
+mutable struct RavanaInvalidIdException <: RavanaExceptionRavanaInvalidIdException323,14258
+mutable struct RavanaInvalidHandleException <: RavanaExceptionRavanaInvalidHandleException328,14364
+mutable struct RavanaInvalidArgException <: RavanaExceptionRavanaInvalidArgException333,14474
+mutable struct RavanaUnexpectedFailureException <: RavanaExceptionRavanaUnexpectedFailureException338,14581
+mutable struct RavanaEExists <: RavanaExceptionRavanaEExists343,14695
+mutable struct RavanaProtoException <: RavanaExceptionRavanaProtoException348,14790
+mutable struct RavanaOplogException <: RavanaExceptionRavanaOplogException353,14892
+mutable struct PerfStatsPerfStats358,14994
+macro pcount(locate::String, ex::Expr)pcount368,15212
+function bytes(b)bytes394,16006
+lt_perf(x::PerfStats, y::PerfStats) = (x.elapsed_time < y.elapsed_time)lt_perf401,16301
+function pget()pget402,16373
+hex(n) = string(n, base=16)hex414,16840
+function Base.zeros(x::PerfStats)Base.zeros416,16869
+function pclear()pclear422,16965
+function pswitch(locate::String, state::Bool)pswitch428,17052
+macro wait_for(s::Float64, exp::Expr)wait_for445,17411
+function ravana_cleanup()ravana_cleanup458,17662
+
+src/Utils.jl,2146
+function set_cfs(cid::id_t)set_cfs6,118
+function get_cfs()get_cfs10,172
+mkfs(cid::id_t) = mkfs(cid, false)mkfs18,285
+function mkfs(cid::id_t, recreate::Bool)mkfs20,321
+function mount(cid::id_t)mount28,513
+function mount(name::String)mount37,717
+function checkpoint()checkpoint43,812
+function syncpoint()syncpoint51,965
+function set_log_level(cid::id_t, level::Logging.LogLevel)set_log_level59,1118
+function rfs_lookup(dfid::fid_t, fname::String)rfs_lookup64,1278
+function rfs_rmdir(p_fid::fid_t, dname::String)rfs_rmdir72,1475
+function rfs_unlink(p_fid::fid_t, name::String)rfs_unlink80,1677
+function rfs_create(dfid::fid_t, fname::String, mask::UInt32, attr::FileAttr)rfs_create88,1879
+function rfs_rename(old_dfid::fid_t, old_name::String, new_dfid::fid_t, new_name::String)rfs_rename98,2157
+function rfs_mkdir(dfid::fid_t, dname::String, mask::UInt32, attr::FileAttr)rfs_mkdir107,2453
+function rfs_mkdir(dname::String)rfs_mkdir118,2746
+function rfs_symlink(p_dfid::fid_t, fname::String, lpath::String, mask::UInt32, attr::FileAttr)rfs_symlink122,2834
+function rfs_link(p_fid::fid_t, fid::fid_t, lname::String)rfs_link132,3139
+function rfs_getattr(fid::fid_t)rfs_getattr141,3381
+function rfs_setattr(fid::fid_t, mask::UInt32, attr::FileAttr)rfs_setattr151,3598
+function rfs_readdir(dfid::fid_t, whence::UInt64)rfs_readdir161,3852
+function rfs_readdir(dfid::fid_t)rfs_readdir170,4047
+function rfs_write(fid::fid_t, offset::UInt64, len::UInt64, buf::Vector{UInt8})rfs_write174,4126
+function rfs_read(fid::fid_t, offset::UInt64, len::UInt64)rfs_read183,4358
+function rfs_readlink(fid::fid_t)rfs_readlink192,4563
+function xcopy(path::String, fid::UInt128, blk_sz)xcopy210,5023
+function xcopy(fid::UInt128, path::String, blk_sz)xcopy226,5519
+function print_dentry(e, attr)print_dentry237,5862
+function ll()ll241,5958
+function ll(fname::String)ll255,6295
+function rfs_touch(fname::String)rfs_touch261,6468
+function rfs_rm(fname::String)rfs_rm266,6577
+function rfs_cd(dirname::String)rfs_cd270,6640
+function cksum(path::String)cksum275,6770
+function cksum(fid::fid_t)cksum280,6874
+
+src/DataWorker.jl,621
+function init_data_worker(id::Int)init_data_worker3,45
+function data_worker(op, args, ro::Bool)data_worker7,111
+function set_db(cid::id_t)set_db19,476
+block(offset) = floor(UInt64, offset / BLOCK_SIZE)block24,607
+function data_delete(file_id::fid_t)data_delete29,704
+function data_write(fid::fid_t, offset::UInt64, len::UInt64, data::Vector{UInt8})data_write49,1317
+function data_read(fid::fid_t, offset::UInt64, len::UInt64)data_read108,4098
+function read_blocks(fid::fid_t, first::UInt64, last::UInt64)read_blocks175,7230
+function offset_to_blocks(offset::UInt64, len::UInt64)offset_to_blocks195,7742
+
+src/Controller.jl,1081
+function  base_dir()base_dir2,34
+fs_base(cid) = base_dir() * hex(cid) * "/"fs_base13,296
+function get_src_path(component::String)get_src_path15,340
+    function find_component(reg, arr)find_component16,381
+function controller_cleanup()controller_cleanup34,1095
+function controller()controller40,1206
+function execute_ctl_op(sock, op, argv, jl)execute_ctl_op69,2038
+mutable struct mntent_tmntent_t84,2460
+function ismounted(cid::id_t)ismounted91,2554
+function get_ref(cid::id_t)get_ref105,2853
+function de_ref(cid::id_t)de_ref115,2995
+function set_pid(cid, pid)set_pid131,3440
+function get_pid(cid)get_pid142,3694
+function ctl_worker(op, argv)ctl_worker147,3751
+function start_fs_proc(cid)start_fs_proc161,4137
+function kill_fs_proc(cid)kill_fs_proc172,4450
+function ctl_mkfs(cid::id_t, recreate::Bool)ctl_mkfs182,4649
+function ctl_mount(cid::id_t)ctl_mount192,4971
+function ctl_set_log_level(cid::id_t, l)ctl_set_log_level200,5166
+function ctl_sync_fs(cid::id_t)ctl_sync_fs204,5275
+function ctl_checkpoint(cid::id_t)ctl_checkpoint208,5344
+
+src/RavanaLogger.jl,1304
+function init_log_db(cid::id_t)init_log_db12,197
+function init_fs(fs_id)init_fs17,360
+function log_it(op, payload)log_it26,599
+function get_oplog_entry(lsn::UInt64)get_oplog_entry40,981
+function get_oplog_entries(first_lsn::UInt64, n::Integer)get_oplog_entries50,1160
+function assemble_oplog_entries(args)assemble_oplog_entries54,1310
+function current_lsn()current_lsn60,1478
+function get_last_cp(fs_id)get_last_cp65,1565
+function set_last_cp(fs_id, cp)set_last_cp70,1695
+function get_last_sp(fs_id)get_last_sp75,1839
+function set_last_sp(fs_id, sp)set_last_sp80,1968
+function setup_thimble()setup_thimble84,2053
+function sync_namespace(ts::DateTime)sync_namespace98,2404
+function sync_data(ts::DateTime)sync_data105,2515
+function syncpoint(sp_lsn, op)syncpoint113,2712
+function checkpoint(cp_lsn)checkpoint130,3280
+function checkpoint_data(cp_lsn, sid)checkpoint_data150,3846
+function checkpoint_ns(sid)checkpoint_ns177,4876
+function clone(cid, sid)clone189,5237
+function restart(cid, sid)restart199,5428
+function restart_ns(cid, sid)restart_ns203,5485
+function recovery(fs_id)recovery227,6141
+function probe_oplog(min, max)probe_oplog240,6489
+function replay_oplog_entries(sp, lsn)replay_oplog_entries255,6925
+function sync_server()sync_server263,7182
+
+src/RavanaFS.jl,72
+module RavanaFSRavanaFS168,8295
+function __init__()__init__183,8597
+
+src/RavanaDb.jl,72
+function rdb_init()rdb_init23,806
+function rdb_exit()rdb_exit28,913
+
+src/NameSpaceWorker.jl,1499
+function init_ns_worker()init_ns_worker3,50
+function ns_worker(op, args, ro::Bool)ns_worker7,132
+function ns_lookup(parent_id::fid_t, fname::String)ns_lookup45,1489
+function ns_readdir(parent_id::fid_t, whence::UInt64)ns_readdir60,1945
+function ns_readlink(fid::fid_t)ns_readlink80,2656
+function ns_create(op::Int32, parent_id::fid_t, child_id::fid_t, fname::String, mask::UInt32, atns_create100,3263
+function ns_symlink(parent_dfid::fid_t, child_id::fid_t, fname::String, lpath::String, mask::UInns_symlink149,4989
+function ns_rename(old_dfid::fid_t, old_name::String, new_dfid::fid_t, new_name::String)ns_rename194,6703
+function ns_link(parent_did::fid_t, link_to::fid_t, link_name::String)ns_link237,8402
+function ns_mkdir(parent_did::fid_t, child_did::fid_t, dname::String, mask::UInt32, attr::FileAtns_mkdir273,9695
+function ns_remove(op::Int32, p_fid::fid_t, name::String)ns_remove322,11711
+function ns_getattr(fid::fid_t)ns_getattr375,13541
+function ns_setattr(fid::fid_t, mask::UInt32, attr::FileAttr)ns_setattr393,14019
+function ns_get_super()ns_get_super407,14399
+function ns_get_super(db)ns_get_super411,14459
+function ns_mount(cid::id_t)ns_mount417,14585
+function ns_put_super(super)ns_put_super427,14944
+function ns_mkfs(cid::id_t)ns_mkfs437,15229
+function ns_mkfs(cid::id_t, recreate::Bool)ns_mkfs441,15286
+function assemble_dirent(input)assemble_dirent477,16599
+function setattr(fattr::FileAttr, attr::FileAttr, mask::UInt32)setattr499,17164
